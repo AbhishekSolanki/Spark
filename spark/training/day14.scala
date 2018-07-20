@@ -44,3 +44,4 @@
 // read data from topics via consumer
 // kafka-console-consumer --bootstrap-server localhost:9092 --topic topic-name-1 --from-beginning
 
+
