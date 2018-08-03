@@ -18,6 +18,7 @@ function fDownloadComponents {
  if [ $TOMCAT_DOWNLOAD == "Y" ]; then yes "y" | wget --no-check-certificate $TOMCAT_DOWNLOAD_URL -P $downloadDir/; fi
  if [ $MARKLOGIC_DOWNLOAD == "Y" ]; then yes "y" | wget --no-check-certificate $MARKLOGIC_DOWNLOAD_URL -P $downloadDir/; fi 
  if [ $PYTHON27_DOWNLOAD == "Y" ]; then yes "y" | wget --no-check-certificate $PYTHON27_DOWNLOAD_URL -P $downloadDir/; yes "y" | wget https://bootstrap.pypa.io/get-pip.py -P $downloadDir/; fi 
+ if [ $GIT_DOWNLOAD == "Y" ]; then yes "y" | wget --no-check-certificate $GIT_DOWNLOAD_URL -O $downloadDir/git.tar.gz; yes "y" | wget https://bootstrap.pypa.io/get-pip.py -P $downloadDir/; fi 
 
 }
 
@@ -102,6 +103,18 @@ function fInstallComponents {
  	sudo pip2.7 install kafka-python
  fi
 
+ if [ $GIT_INSTALL == "Y" ]
+ then
+    yes "y" | sudo yum groupinstall "Development Tools"
+    yes "y" | sudo yum install gettext-devel openssl-devel perl-CPAN perl-devel zlib-devel
+    sudo tar -xzf  $downloadDir/git.tar.gz -C ~/
+    cd ~/git-*
+    make configure
+    ./configure --prefix=/usr/local
+    sudo make install
+    cd -
+    sudo rm -rf $downloadDir/git-*
+ fi
 
 
 }

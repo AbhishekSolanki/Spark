@@ -25,3 +25,4 @@ to reinstall again keep _DOWNLOAD=N amd _INSTALL=Y
 - Apache Kafka 0.10.2
 - Python 2.7, PIP2.7
 - kafka-python library
+- Git 2.1.2
