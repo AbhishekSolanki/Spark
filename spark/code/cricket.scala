@@ -14,7 +14,9 @@ val indiaWinLossTie = indiaMatchDataRDD.map( rec=> {
 	else if(record(4).equals("null")) ("ind",(0,0,1)) // tie
 	else ("ind",(0,1,0)) // loose
 }).reduceByKey(
-(acc,n) => (acc._1+n._1,acc._2+n._2,acc._3+n._3) //totalMatches
+(acc,n) => {
+	(acc._1+n._1,acc._2+n._2,acc._3+n._3,acc._1+acc._2+acc._3)
+} //totalMatches
 ).map( x =>{
  val totalMatches: Double = x._2._1 + x._2._2 + x._2._3
 (x._2._1/(totalMatches) * 100 ,x._2._2/totalMatches *100,x._2._3/totalMatches *100)
@@ -51,3 +53,20 @@ val indiaMostPlayedVenue = indiaMatchDataRDD.map( rec=> {
 
 
 //6.	What has been the average Indian win or loss by Runs per year?
+// reduceByKey wont work in averages if there is only single record
+
+val indiaMatchDataRDD = sc.textFile("dataset/t20matches/cricket.csv").mapPartitionsWithIndex {
+ (idx,itr) => if(idx==0) itr.drop(1) else itr
+}.filter(x=>x.split(",")(2).equals("ind") || x.split(",")(3).equals("ind"))
+val avgIndiaWinLoss=indiaMatchDataRDD.map( rec=> {
+	val record = rec.split(",")
+	var date = record(0).substring(0,4)
+	var winLoss = if(record(4).equals("ind")) "win" else "loose"
+	var run = if(record(5).equals("null")) 0.toInt else record(5).toInt
+	((date,winLoss),(run,1.0))
+}).reduceByKey(
+(acc,elem) => {
+var sum = acc._1 + elem._1
+var items = acc._2 + elem._2
+(sum,items)
+}).mapValues( x=> (x._1,x._1/x._2))
