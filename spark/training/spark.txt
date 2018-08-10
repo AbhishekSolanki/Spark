@@ -1,0 +1,45 @@
+1. map vs flatMap vs mapValues
+
+- map : takes 1 element produces 1 output. Operates on both (K,V) in function
+- flatMap: takes 1 element, but produces 0,1,or 1+ output
+- mapValues: same as map but operates only on Value in function implementation
+
+2. reduce vs reduceByKey, groupByKey, aggregateByKey, combineByKey, countByKey
+
+- reduce: it is an action, works on global data means all the data received on reducer
+- reduceByKey: is a transformation, takes one argument as function. Combiner and reducer logic are same. Not suitable for
+             transformation, sorting, ranking. Only aggregation sum,min, max
+- groupByKey: is a transformation, group data based on key. No combiner. All the data is shuffeled to reducer and grouping is performed. Suitable for sorting,ranking, etc.
+- aggregateByKey: is a transformation, combiner logic is different. Initialization type should be same as output type. takes 2 argument
+             initialization,(combiner_logic, reducer_logic).Not suitable for transformation, sorting, ranking. Only aggregation sum,min,max, average
+- combineByKey: alternative to groupByKey with enhanced control over combiner and merger logic. Takes 3 parameter combiner,merger,finalMerger. Also when output type is required to be different than input.
+- countByKey: is an action which just counts the items based on key
+
+3. broadcast variables
+- sharing variable accross executors. It is read only hence immutable 
+- create using spark context val b = sc.broadcast(1)
+- should be fit into single node memory e.g static lookup tables
+- methods: id, value, unpersist, destroy
+- can be usef for map side joins
+
+
+4. Spark Architecture
+
+- Driver: starting point with spark context ask for recources from cluster manager YARN. Once connected acquires executors on cluster
+- Executor: each application get its own executor process. Run tasks in multiple thread.
+
+
+5. colelct, take, takeOrdered, top
+
+- collect: to print all the elements on the driver. which brings RDD to driver. Driver may run out of memory, because it fetches entire RDD
+- take: subsuet of data, used to print fewer record ,The take action returns an array of the first n elements (not ordered)
+- top: top k (largest) elements from this RDD as defined by the specified implicit Ordering[T]
+-takeOrdered: takeOrdered(n,key=func) is an action that returns n elements ordered in ascending order as specified by the optional key function:
+
+6. cache() vs persist(), unpersist()
+
+- cache(): When we use the cache() method we can store all the RDD in-memory. We can persist the RDD in memory and use it efficiently across parallel operations. storage level: MEMORY_ONLY
+- persist(): use various storage levels (MEMORY_ONLY, MEMORY_AND_DISK,MEMORY_ONLY_SER, MEMORY_AND_DISK_SER,DISK_ONLY)
+- unpersist(): manually remove persisted rdd
+
+7.

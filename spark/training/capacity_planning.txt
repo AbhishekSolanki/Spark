@@ -1,0 +1,38 @@
+capacity planning
+
+
+prerequisites:
+
+volume of data = 100TB
+retention policy = 2 years
+workload ( CPU,MEM intensive) = 70CPU 30MEM (70CPU inc. ingestion, batch)
+file type and compression: plainText/avro/parquet/JSON/ORC or compress GZIP, snappy ( 50% container, 50% compress)
+
+
+DN:
+replication factor = 3
+total storage = rep_fact * volume of data * retension = 3*100*2 = 600TB
+50% container and 50% compressed = 0.5 * total + 0.5 * total * compression ratio = 0.5 *600 + 0.5*600*(1-0.7) = 300+90 390
+DN Disk space 20% = 390(1+0.20) = 468TB
+
+
+JBOD 12*4TB = 48
+no. of DN = 10  7 for Batch 3 for NRT
+
+cores:
+ 1 core for heavy cpu processing, 0.7 core for medium processing
+ batch processing : 2*6 core = 12*7 =84
+ NRT: 2*8 core 18=18*3=54
+ total 138 cores 13/node 13 task per node
+ if hyperthreading is enables then 2*13 = 26 task per node
+
+RAM
+DataNode process memory+DataNode TaskTracker memory+OS memory+CPU's core number *Memory per CPU core
+batch data node: 4+4+4+12*4=60 GB * 7 = 420
+NRT data nosde: 4+4+4+16*4=76 GB *3  = 228
+total 648GB
+
+
+NRT JOBS:
+per node: 16 cores, 2 cores for each application, 2 cpu => 16/2 = 8 cored / 2 cpu = 4 app/node
+cluster NRT Jobs: 4*3 =12 
