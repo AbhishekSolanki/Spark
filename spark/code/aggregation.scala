@@ -82,3 +82,35 @@ if(a._2< b._2) min=a._2 else min=b._2
 if(a._3 > b._3) max =a._3 else max=b._3
 (sum,min,max,avg,items)
 })
+
+
+// implementing groupByKey using combineByKey
+
+val products = sc.textFile("/user/cloudera/dataset/retail_db/products/")
+val productsMap = products.
+filter( product => product.split(",")(4) !="").
+map(product => (product.split(",")(1).toInt, product)) // categoryid, product
+// map output => (KEY,String),(KEY,String2)
+// combine op => (KEY, LIST(String1,String2))
+
+// combineByKey implementation
+
+// first function that accepts current value as parameter and return new value that will
+// be merged with additional values
+val createCombiner = ( value: String) => List(value)
+
+// second is the merging function, that takes a value and merges into previously collected values
+// at partition level
+val createMerger = ( collector1:List[String], value:String) => {
+	value :: collector1
+}
+
+// third function combines the merged values together. Takes the values produced at partition level
+// and combines them untill we end up at singular value.
+val finalMerger = ( collector1:List[String], collector2:List[String]) =>{ 
+collector1 ::: collector2
+}
+
+//validating the output of groupByKey and combineByKey
+productsMap.combineByKey(createCombiner,createMerger,finalMerger).filter(_._1==13).map(x=>(x._1,x._2.size))
+productsMap.groupByKey().filter(_._1==13).map(x=>(x._1,x._2.size))

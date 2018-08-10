@@ -29,7 +29,7 @@
 - Executor: each application get its own executor process. Run tasks in multiple thread.
 
 
-5. colelct, take, takeOrdered, top
+5. collect, take, takeOrdered, top
 
 - collect: to print all the elements on the driver. which brings RDD to driver. Driver may run out of memory, because it fetches entire RDD
 - take: subsuet of data, used to print fewer record ,The take action returns an array of the first n elements (not ordered)
@@ -42,4 +42,13 @@
 - persist(): use various storage levels (MEMORY_ONLY, MEMORY_AND_DISK,MEMORY_ONLY_SER, MEMORY_AND_DISK_SER,DISK_ONLY)
 - unpersist(): manually remove persisted rdd
 
-7.
+7. lineage graph
+A RDD lineage graph is hence a graph of what transformations need to be executed after an action has been called.
+
+8. DStream 
+represent continuous stream of data wither from input source or processed data stream by transformation. Continuous stream of RDD
+
+9. Window Operations
+ apply transformations over a sliding window of data.every time the window slides over a source DStream, the source RDDs that fall within the window are combined and operated upon to produce the RDDs of the windowed DStream.
+ // Reduce last 30 seconds of data, every 10 seconds - window length and sliding interval
+val windowedWordCounts = pairs.reduceByKeyAndWindow((a:Int,b:Int) => (a + b), Seconds(30), Seconds(10))

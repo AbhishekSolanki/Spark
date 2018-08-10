@@ -33,6 +33,6 @@ NRT data nosde: 4+4+4+16*4=76 GB *3  = 228
 total 648GB
 
 
-NRT JOBS:
+Spark JOBS:
 per node: 16 cores, 2 cores for each application, 2 cpu => 16/2 = 8 cored / 2 cpu = 4 app/node
 cluster NRT Jobs: 4*3 =12 
