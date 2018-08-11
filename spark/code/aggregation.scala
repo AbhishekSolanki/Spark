@@ -67,6 +67,24 @@ if(a._3 > b._3) max =a._3 else max=b._3
 (sum,min,max,items)
 }).map(x=>(x._1,(x._2._1,x._2._2,x._2._3,x._2._1/x._2._4))).filter(_._1==4).foreach(println)
 
+//using case class
+case class rev(subtotal: Float,min:Float, Max:Float,avg:Float)
+val order_items = sc.textFile("dataset/retail_db/order_items/part-00000")
+val revenuePerOrder = order_items.map(x=>(x.split(",")(1).toInt,rev(x.split(",")(4).toFloat,
+	x.split(",")(4).toFloat,x.split(",")(4).toFloat,1.toFloat))).
+reduceByKey(
+(a,b) => {
+// min 
+var sum:Float = a.subtotal+b.subtotal
+var min:Float = 0
+var max:Float  =0
+var items = (a.avg+b.avg)
+if(a.min< b.min) min=a.min else min=b.min
+if(a.Max > b.Max) max =a.Max else max=b.Max
+rev(sum,min,max,items)
+}).map(x=>(x._1,(x._2.subtotal,x._2.min,x._2.Max,x._2.subtotal/x._2.avg))).filter(_._1==4).foreach(println)
+
+
 
 // approach 2 for calulating average with extra value in map
 val revenuePerOrder = order_items.map(x=>(x.split(",")(1).toInt,(x.split(",")(4).toFloat,
