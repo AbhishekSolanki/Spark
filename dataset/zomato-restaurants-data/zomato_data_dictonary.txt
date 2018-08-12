@@ -1,21 +1,22 @@
-0 Restaurant ID
-1 Restaurant Name
-2 Country Code
-3 City
-4 Address
-5 Locality
-6 Locality Verbose
-7 Longitude
-8 Latitude
-9 Cuisines
-10 Average Cost for two
-11 Currency
-12 Has Table booking
-13 Has Online delivery
-14 Is delivering now
-15 Switch to order menu
-16 Price range
-17 Aggregate rating
-18 Rating color
-19 Rating text
-20 Votes
+Index attribute = attribute description and datatype
+0 Restaurant = IDIdentification Number
+1 Restaurant Name = Name Of the Restaurant
+2 Country Code = 216
+3 City = City Name of the Restaurant
+4 Address = Address Of the Restaurant
+5 Locality = Shot Address Of the Restaurant
+6 LocalityVerboseLong = Address of the Restaurant
+7 Longitude = Longitude
+8 Latitude = Latitude
+9 Cuisines = Types Of Cuisines Served
+10 Average Cost for two = Average Cost if two people visit the Restaurant
+11 Currency = Type of Currency paid in the Restaurant
+12 Has Table booking = Can we book tables in Restaurant? Yes/No
+13 Has Online delivery = Can we have online delivery ? Yes/No
+14 Is delivering now = Is the Restaurant delivering food now? Yes/No
+15 Switch to order menu = Switch to order menu ? Yes/ No
+16 Price range = Categorized price between 1 -4
+17 Aggregate rating = Categorizing ratings between 1-5
+18 Rating color = Different colors representing Customer Rating
+19 Rating text = Different Rating like Excellent, Very Good ,Good, Avg., Poor, Not Rated
+20 Votes = No.Of Votes received by restaurant from customers.
