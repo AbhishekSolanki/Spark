@@ -1,7 +1,7 @@
 1. map vs flatMap vs mapValues
 
 - map : takes 1 element produces 1 output. Operates on both (K,V) in function
-- flatMap: takes 1 element, but produces 0,1,or 1+ output
+- flatMap: takes 1 element, but produces 0,1,or 1+ output. Hence the flaMap output would be of type Traversable i.e List, Seq etc.
 - mapValues: same as map but operates only on Value in function implementation
 
 2. reduce vs reduceByKey, groupByKey, aggregateByKey, combineByKey, countByKey

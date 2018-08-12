@@ -1,0 +1,21 @@
+0 Restaurant ID
+1 Restaurant Name
+2 Country Code
+3 City
+4 Address
+5 Locality
+6 Locality Verbose
+7 Longitude
+8 Latitude
+9 Cuisines
+10 Average Cost for two
+11 Currency
+12 Has Table booking
+13 Has Online delivery
+14 Is delivering now
+15 Switch to order menu
+16 Price range
+17 Aggregate rating
+18 Rating color
+19 Rating text
+20 Votes
