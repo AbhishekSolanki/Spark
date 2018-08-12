@@ -34,15 +34,15 @@ val zomatoRaw = sc.textFile("dataset/zomato-restaurants-data/zomato.csv").mapPar
 
 val countryPoorRestaurant = zomatoRaw.map( line => {
 	val rec = line.split(",(?=([^\"]*\"[^\"]*\")*(?![^\"]*\"))")
-	(rec(2),(rec(0).toInt,rec(20).toInt))
-}).groupByKey() // (country,CompactBuffer[(restaurant_id,votes)])
+	(rec(2),(rec(1),rec(20).toInt))
+}).groupByKey() // (country,CompactBuffer[(restaurant_name,votes)])
 
 // a method to sort inside list which will be used in map function
-def fifthMostPoorRestaurant = ( input: Iterable[(Int,Int)]) =>{ // takes input as compactBuffer from map
+def fifthMostPoorRestaurant = ( input: Iterable[(String,Int)]) =>{ // takes input as compactBuffer from map
 	val sortedRestaurantByVotes = input.toList.sortBy(_._2) // converting into list and sorting based on votes in ascending
 	sortedRestaurantByVotes(5) // fifth element is the fith most "Poor" delivering restaurant
 }
 
 val fifthMostPoorRestaurantByCountry = countryPoorRestaurant.map( x => fifthMostPoorRestaurant(x._2)) // passing the groupByKey value to sorting function in map
 // fifthMostPoorRestaurantByCountry.foreach(println)
-// (18383490,8)
+// (Chicago Pizza,8)
