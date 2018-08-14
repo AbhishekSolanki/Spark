@@ -2,12 +2,12 @@
 // Data Dictionary: https://github.com/AbhishekSolanki/Spark/tree/master/dataset/zomato-restaurants-data/zomato_data_dictonary.txt
 
 // PROBLEM 1: Which is the third most popular cuisine served by restaurant
-val zomatoRaw = sc.textFile("dataset/zomato-restaurants-data/zomato.csv").mapPartitionsWithIndex {
+val zomatoRawP1 = sc.textFile("dataset/zomato-restaurants-data/zomato.csv").mapPartitionsWithIndex {
 	(idx,itr) => if(idx==0) itr.drop(1) else itr
 }.filter(line=>line.split(",(?=([^\"]*\"[^\"]*\")*(?![^\"]*\"))").size==21) // colum 9 contains , inside data like "a,b,c" and checking total columns should be 21
 
 import scala.collection.mutable.ListBuffer
-val _3highestCuisineArr = zomatoRaw.flatMap( line => {
+val _3highestCuisineArr = zomatoRawP1.flatMap( line => {
 	val restaurantCuisines = line.split(",(?=([^\"]*\"[^\"]*\")*(?![^\"]*\"))")(9) // splitting libe by comma with "," inside data and getting the 9th column
 	val restaurantCuisinesArray = restaurantCuisines.replace("\"","").split(",") // each cussines served by restaurant are seperated by ","
 	val output = new ListBuffer[(String,Int)]()
@@ -23,7 +23,7 @@ val  _3highestCuisine =  _3highestCuisineArr(0) // final ans which is the third 
 
 
 // PROBLEM 2: Which is the Fifth most "Poor" rated restaurant in each country which has online delivering option 
-val zomatoRaw = sc.textFile("dataset/zomato-restaurants-data/zomato.csv").mapPartitionsWithIndex {
+val zomatoRawP2 = sc.textFile("dataset/zomato-restaurants-data/zomato.csv").mapPartitionsWithIndex {
 	(idx,itr) => if(idx==0) itr.drop(1) else itr
 }.filter(line=>{
 	val rec = line.split(",(?=([^\"]*\"[^\"]*\")*(?![^\"]*\"))")
@@ -32,7 +32,7 @@ val zomatoRaw = sc.textFile("dataset/zomato-restaurants-data/zomato.csv").mapPar
 // colum 9 contains , inside data like "a,b,c" and checking total columns should be 21, should be delivering "Poor" and delivering now
 // only country code 1ith 1 matches this criteria
 
-val countryPoorRestaurant = zomatoRaw.map( line => {
+val countryPoorRestaurant = zomatoRawP2.map( line => {
 	val rec = line.split(",(?=([^\"]*\"[^\"]*\")*(?![^\"]*\"))")
 	(rec(2),(rec(1),rec(20).toInt))
 }).groupByKey() // (country,CompactBuffer[(restaurant_name,votes)])
@@ -46,3 +46,6 @@ def fifthMostPoorRestaurant = ( input: Iterable[(String,Int)]) =>{ // takes inpu
 val fifthMostPoorRestaurantByCountry = countryPoorRestaurant.map( x => fifthMostPoorRestaurant(x._2)) // passing the groupByKey value to sorting function in map
 // fifthMostPoorRestaurantByCountry.foreach(println)
 // (Chicago Pizza,8)
+
+
+// PROBLEM 3: What percentage of online delivering restaurant accepts different currencies: e.g INR 50% USD 105
