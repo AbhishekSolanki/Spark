@@ -1,0 +1,55 @@
+scala
+
+1. Monad
+
+It is just a wrapper. An object is wrapped with monad to provide two operations.
+-identity (unit)
+-bind (flatmap)
+
+2. Functor
+
+is a type of mapping between cateories. Given two categories, A and B, a functor, F, maps the objects or entities of
+ A to the objects or entities of B. We can simply call it a function of objects or entities.
+
+e.g map
+
+3. parallel collections
+https://docs.scala-lang.org/overviews/parallel-collections/overview.html
+
+4. futures
+https://docs.scala-lang.org/overviews/core/futures.html
+
+5. Asyn libraries
+https://docs.scala-lang.org/sips/async.html
+
+6. val vs var
+val - immutable variable
+var - just a normal variable
+
+7. clousure
+a function, whose return value depends on the value of one or more variables declared outside this function.
+
+8. option
+to avoid null pointer exception if value is there oprions gives "some" else "none"
+
+9. Null - as the name says
+   Nil - empty list 
+   None - used to represent some sort of null value in Options
+   Nothing - is a trait, sub type of everyting but not superclass of anything
+
+10. Traits - similar to java interface
+
+11. streams - is a list with lazy computation
+
+12. implicit parameters - when a function needs to be invoked without passing all the parameters. Default values of the parameter 
+    is passed
+
+13. yield - The yield keyword if specified before the expression, the value returned from every expression,
+    will be returned as the collection.
+
+14. case class - for data modelling, serializable, pattern matching 
+
+15. auxillary constructor - secondary constructor in scala. Every auxiliary constructor in Scala should differ in the number 
+    of parameters or in data types.
+
+16. apply vs unapply - are used for mapping and unmapping data between form and model data.
