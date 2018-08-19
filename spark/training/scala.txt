@@ -53,3 +53,26 @@ to avoid null pointer exception if value is there oprions gives "some" else "non
     of parameters or in data types.
 
 16. apply vs unapply - are used for mapping and unmapping data between form and model data.
+
+17. difference between traits and abstract class
+
+a class can only extends one class. But unlimited no. of traits
+traits only supports parameter, while abstract class can have constructor
+abstract class are interoperable with java, but traits are only interoperable with java if they do not have implementation.
+
+18. Try vs Wither
+-try is same as try/catch in java
+-If you need to provide a little more info about the reason the computation has failed, Either may be very useful. 
+With Either you specify two possible return types: the expected/correct/successful and the error case which can be as simple
+as a String message to be displayed to the user
+
+19. function currying
+Currying is a technique of making a function that takes multiple arguments into a series of functions that take a
+part of the arguments.
+
+def add(a: Int)(b: Int) = a + b
+
+val add2 = add(2)(_)
+
+scala> add2(3)
+res0: Int = 5
