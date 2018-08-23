@@ -18,7 +18,7 @@ val denseRankProductsByCategory = df.withColumn("dense_rank",dense_rank over cat
 val percentRankProductsByCategory = df.withColumn("percent_rank",percent_rank over categoryBucket)
 
 //ntile computes the ntile group id (from 1 to n inclusive) in an ordered window partition.
-val nTileProductsByCategory = df.select('*,ntile(3) over categoryBucket as "ntile")  '
+val nTileProductsByCategory = df.select('*,ntile(3) over categoryBucket as "ntile")  ' // this last quote is not needed
 
 //row_number returns a sequential number starting at 1 within a window partition.
 val rowNumByProductsCategory = df.withColumn("row_number", row_number() over categoryBucket)
