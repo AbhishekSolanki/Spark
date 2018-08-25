@@ -22,3 +22,4 @@ val nTileProductsByCategory = df.select('*,ntile(3) over categoryBucket as "ntil
 
 //row_number returns a sequential number starting at 1 within a window partition.
 val rowNumByProductsCategory = df.withColumn("row_number", row_number() over categoryBucket)
+
