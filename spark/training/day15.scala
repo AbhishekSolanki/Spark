@@ -35,4 +35,4 @@ val lagProducstCategory = df.withColumn("lag", lag('revenue, 1) over windowSpec)
 //Lead function allows us to compare current row with subsequent rows within each partition depending on the second argument (offset) which is by default set to 1 i.e. n
 //ext row but you can change that parameter 2 to compare against every other row.
 //The 3rd parameter is default value to be returned when no subsequent values exists or null.
-val leadProducstCategory = df.withColumn("lag", lead('revenue, 1) over windowSpec)   '
+val leadProducstCategory = df.withColumn("lag", lead('revenue, 1) over windowSpec) 
