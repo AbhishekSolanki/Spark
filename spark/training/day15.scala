@@ -36,4 +36,3 @@ val lagProducstCategory = df.withColumn("lag", lag('revenue, 1) over windowSpec)
 //ext row but you can change that parameter 2 to compare against every other row.
 //The 3rd parameter is default value to be returned when no subsequent values exists or null.
 val leadProducstCategory = df.withColumn("lag", lead('revenue, 1) over windowSpec) 
-
