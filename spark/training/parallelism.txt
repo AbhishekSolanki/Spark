@@ -1,5 +1,5 @@
 
-hdfsInput=dataset/num1.txt
+hdfsInput=/user/cloudera/dataset/num3.txt
 inputBlocks=$(echo $(hdfs fsck -blocks $hdfsInput) | sed -e 's/.*Total blocks (validated): \(.*\)(avg.*/\1/')
 
 hdfs getconf -confKey dfs.blocksize
