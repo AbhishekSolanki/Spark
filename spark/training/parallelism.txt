@@ -4,3 +4,4 @@ inputBlocks=$(echo $(hdfs fsck -blocks $hdfsInput) | sed -e 's/.*Total blocks (v
 
 hdfs getconf -confKey dfs.blocksize
 hdfs fsck -blocks [HDFS_FILE_PATH]
+
