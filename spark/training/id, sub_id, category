@@ -1,9 +1,11 @@
 id, sub_id, category
 1,2,a
 2,3,a
+2,3,a
 3,4,a
 4,0,a
 5,6,b
+6,7,b
 6,7,b
 7,0,b
 8,9,c
@@ -15,13 +17,17 @@ id, sub_id, category
 14,0,d
 
 
+Problem: based on category negate the rank in the data 
+
 output
 =======
 id, sub_id, category, level
 3,4,a,-1
 2,3,a,-2
+2,3,a,-2
 1,2,a,-3
-4,0,a,-1
+4,0,a,-4
+6,7,b,-1
 6,7,b,-1
 5,6,b,-2
 7,0,b,-3
@@ -46,3 +52,11 @@ category String
 fields terminated by ','
 stored as textfile
 location '/user/cloudera/dataset/hive_linked_data';
+
+
+Query
+==========
+select
+*,
+-rank() over(partition by category order by sub_id desc) as level 
+from hive_linked_data 
